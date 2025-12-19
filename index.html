@@ -5,11 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Components</title>
     <script src="assets/js/code_verification.js"></script>
+    <script src="assets/js/simple_slider.js"></script>
     <style >
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+        h1 {
+            color: #333;
+        }
+
+        simple-slider {
+            display: block;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .slide {
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            width: 100%;
+        }
+
+        .slider {
+            background-color: Red;
+        }
+
     </style>
 </head>
 <body>
@@ -22,5 +45,13 @@
             console.log('Code saisi :', event.detail.code);
         });
     </script>
+
+    <h1>Simple Slider</h1>
+
+    <simple-slider>
+        <div class="slide">Slide 1</div>
+        <div class="slide">Slide 2</div>
+        <div class="slide">Slide 3</div>
+    </simple-slider>    
 </body>
 </html>

@@ -33,3 +33,17 @@ Il est également possible de préciser une chaine pour le aria-label de chaque 
     });
 </script>
 ```
+
+## Simple slider
+
+Slider très simple qui affiche et scroll une slide à la fois. 
+
+### Exemple d'integration 
+
+```
+<simple-slider>
+    <div class="slide">Slide 1</div>
+    <div class="slide">Slide 2</div>
+    <div class="slide">Slide 3</div>
+</simple-slider>  
+```
