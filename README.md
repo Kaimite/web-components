@@ -47,3 +47,37 @@ Slider très simple qui affiche et scroll une slide à la fois.
     <div class="slide">Slide 3</div>
 </simple-slider>  
 ```
+
+## Number controls
+
+Ajoute un bouton - / + avec un champ number pour la saisie d'une quantité.
+
+A chaque fois que la quantité est modifié un événement est lancé `numberControls.change`. Il est possible d'utiliser tous les attributs d'un champ `number` ainsi que le `aria-label`
+
+Lors de l'appuie sur les boutons la valeur est vérifiée pour ne pas dépasser le min / max. 
+
+### Exemple d'integration 
+
+```
+<form style="margin-top: 15px;" id="myForm">
+    <number-controls aria-label="Quantité" class="has-big-field" id="quantity2" name="quantity2" max="10" min="0" placeholder="Enter quantity" required></number-controls>
+    <output id="number-control-value"></output>
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    const numberComponent = document.getElementById('quantity2');
+    
+    numberComponent.addEventListener('numberControl.change', (event) => {
+        document.getElementById('number-control-value').textContent = 'Valeur actuelle : ' + event.detail.value;
+    });
+
+    document.getElementById('myForm').addEventListener('submit', function (e) {
+        //--> Test de la validité du champs
+        if (!numberComponent.checkValidity()) {
+            e.preventDefault(); // Bloque la soumission
+            numberComponent.reportValidity(); // Affiche le message natif
+        }
+    });
+</script>
+```

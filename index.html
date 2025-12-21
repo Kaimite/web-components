@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Components</title>
     <script src="assets/js/code_verification.js"></script>
     <script src="assets/js/simple_slider.js"></script>
-    <style >
+    <script src="assets/js/number_controls.js"></script>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+
         h1 {
             color: #333;
         }
@@ -33,12 +36,24 @@
             background-color: Red;
         }
 
+        .has-big-field {
+            --number-control-input-width: 150px;
+            --number-control-input-text-align: left;
+        }
+
+        #number-control-value {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <h1>Saisir le code de vérification</h1>
 
-    <code-verification field-name="verificationCode" nb-fields="9" aria-label-field="Code de vérification, caractère {{x}} sur {{y}}"></code-verification>
+    <code-verification field-name="verificationCode" nb-fields="9"
+        aria-label-field="Code de vérification, caractère {{x}} sur {{y}}"></code-verification>
 
     <script>
         document.querySelector('code-verification').addEventListener('code-complete', (event) => {
@@ -52,6 +67,33 @@
         <div class="slide">Slide 1</div>
         <div class="slide">Slide 2</div>
         <div class="slide">Slide 3</div>
-    </simple-slider>    
+    </simple-slider>
+
+    <h1>Number Controls</h1>
+
+    <number-controls name="quantity" value="8" max="10" min="0" placeholder="Enter quantity" required></number-controls>
+
+    <form style="margin-top: 15px;" id="myForm">
+        <number-controls aria-label="Quantité" class="has-big-field" id="quantity2" name="quantity2" max="10" min="0" placeholder="Enter quantity" required></number-controls>
+        <output id="number-control-value"></output>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        const numberComponent = document.getElementById('quantity2');
+        
+        numberComponent.addEventListener('numberControl.change', (event) => {
+            document.getElementById('number-control-value').textContent = 'Valeur actuelle : ' + event.detail.value;
+        });
+
+        document.getElementById('myForm').addEventListener('submit', function (e) {
+            if (!numberComponent.checkValidity()) {
+                e.preventDefault(); // Bloque la soumission
+                numberComponent.reportValidity(); // Affiche le message natif
+            }
+        });
+    </script>
+
 </body>
+
 </html>
