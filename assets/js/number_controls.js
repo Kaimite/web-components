@@ -43,22 +43,14 @@ class NumberControls extends HTMLElement {
 
   _attachEventListeners() {
     this.inputField.addEventListener("input", () => this._onInputHandler());
-    this.incrementButton.addEventListener("click", () =>
-      this._incrementValue()
-    );
-    this.decrementButton.addEventListener("click", () =>
-      this._decrementValue()
-    );
+    this.incrementButton.addEventListener("click", () => this._incrementValue() );
+    this.decrementButton.addEventListener("click", () => this._decrementValue() );
   }
 
   _detachEventListeners() {
     this.inputField.removeEventListener("input", () => this._onInputHandler());
-    this.incrementButton.removeEventListener("click", () =>
-      this._incrementValue()
-    );
-    this.decrementButton.removeEventListener("click", () =>
-      this._decrementValue()
-    );
+    this.incrementButton.removeEventListener("click", () => this._incrementValue() );
+    this.decrementButton.removeEventListener("click", () => this._decrementValue() );
   }
 
   _incrementValue() {
