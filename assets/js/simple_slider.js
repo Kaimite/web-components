@@ -1,17 +1,21 @@
 class SimpleSlider extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.currentIndex = 0;
   }
 
   connectedCallback() {
-    this.render();
-    this.setupEventListeners();
+    if ( this._deviceHasTouchscreen() ) {
+
+    } else {
+        this._renderDesktop();
+        this.setupEventListeners();
+    }
   }
 
-  render() {
-  this.shadowRoot.innerHTML = `
+  _renderDesktop() {
+    this.shadowRoot.innerHTML = `
     <style>
       .slider {
         position: relative;
@@ -50,22 +54,29 @@ class SimpleSlider extends HTMLElement {
       <button class="next">Suivant</button>
     </div>
   `;
-}
+  }
   setupEventListeners() {
-    const prevBtn = this.shadowRoot.querySelector('.prev');
-    const nextBtn = this.shadowRoot.querySelector('.next');
-    const slidesContainer = this.shadowRoot.querySelector('.slides');
-    const slot = this.shadowRoot.querySelector('#slides-slot');
+    const prevBtn = this.shadowRoot.querySelector(".prev");
+    const nextBtn = this.shadowRoot.querySelector(".next");
+    const slidesContainer = this.shadowRoot.querySelector(".slides");
+    const slot = this.shadowRoot.querySelector("#slides-slot");
 
     // Écoute l'événement `slotchange` pour accéder aux slides
-    slot.addEventListener('slotchange', () => {
-      console.log('Slot changed');  
+    slot.addEventListener("slotchange", () => {
+      console.log("Slot changed");
       this.slideItems = slot.assignedElements();
       this.slidesContainer = slidesContainer;
     });
 
-    prevBtn.addEventListener('click', () => this.prevSlide());
-    nextBtn.addEventListener('click', () => this.nextSlide());
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+            this.prevSlide();
+        } else if (e.key === "ArrowRight") {
+            this.nextSlide();
+        }
+    });
+    prevBtn.addEventListener("click", () => this.prevSlide());
+    nextBtn.addEventListener("click", () => this.nextSlide());
   }
 
   prevSlide() {
@@ -84,9 +95,23 @@ class SimpleSlider extends HTMLElement {
 
   updateSlider() {
     if (this.slidesContainer) {
-      this.slidesContainer.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+      this.slidesContainer.style.transform = `translateX(-${
+        this.currentIndex * 100
+      }%)`;
     }
+  }
+
+  _deviceOnlyHasKeyboard() {
+    return window.matchMedia("(pointer: none)").matches;
+  }
+
+  _deviceHasTouchscreen() {
+    return window.matchMedia("(pointer: coarse)").matches;
+  }
+
+  _deviceHasMouse() {
+    return window.matchMedia("(pointer: fine)").matches;
   }
 }
 
-customElements.define('simple-slider', SimpleSlider);
+customElements.define("simple-slider", SimpleSlider);
