@@ -63,11 +63,25 @@
 
     <h1>Simple Slider</h1>
 
-    <simple-slider>
+    <simple-slider id="slider1" with-controls>
         <div class="slide">Slide 1</div>
         <div class="slide">Slide 2</div>
         <div class="slide">Slide 3</div>
     </simple-slider>
+
+    <simple-slider id="slider3" with-controls>
+        <div class="slide">Slide 4</div>
+        <div class="slide">Slide 5</div>
+        <div class="slide">Slide 6</div>
+    </simple-slider>
+
+    <simple-slider id="slider2">
+        <div class="slide">Slide 1</div>
+        <div class="slide">Slide 2</div>
+        <div class="slide">Slide 3</div>
+    </simple-slider>
+
+    <button onclick="removeSlider()">Supprimer le dernier slide</button>
 
     <h1>Number Controls</h1>
 
@@ -80,6 +94,14 @@
     </form>
 
     <script>
+        function removeSlider() {
+            const slider = document.getElementById('slider2');
+            if (slider) {
+                alert("REMOVE SLIDER");
+                slider.remove();
+            }
+        }
+        
         const numberComponent = document.getElementById('quantity2');
         
         numberComponent.addEventListener('numberControls.change', (event) => {

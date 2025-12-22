@@ -48,6 +48,8 @@ Slider très simple qui affiche et scroll une slide à la fois.
 </simple-slider>  
 ```
 
+Si l'écran est tactile on utilise une zone scrollable avec un snap scroll pour alleger le JS
+
 ## Number controls
 
 Ajoute un bouton - / + avec un champ number pour la saisie d'une quantité.
